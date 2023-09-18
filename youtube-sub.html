@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Youtube Subscribe Button</title>
+    </head>
+
+    <body>
+
+        <button class = "subscribe-button" onclick="subscribeToChannel()"></button>
+
+        <script>
+            
+            if(localStorage.getItem('status') == 'sub')
+            document.querySelector('.subscribe-button').innerHTML = 'Subscribed!';
+            else
+            document.querySelector('.subscribe-button').innerHTML = 'Subscribe';
+
+            function subscribeToChannel()
+            {
+
+                if(localStorage.getItem('status') == 'sub')
+                {
+                    //INSERT CODE FOR UNSUBSCRIBING
+                    alert('Are you sure you want to unsibscribe?');
+                    document.querySelector('.subscribe-button').innerHTML = 'Subscribe';
+                    localStorage.setItem('status','unsub');     
+                }
+                else
+                {
+                    //INSERT CODE FOR SUBSCRIBING
+                    document.querySelector('.subscribe-button').innerHTML = 'Subscribed!';
+                    localStorage.setItem('status','sub');
+                }
+
+
+            }
+
+        </script>
+
+    </body>
+</html>

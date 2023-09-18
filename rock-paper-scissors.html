@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock Paper Scissor</title>
+    </head>
+
+    <body>
+        <p>Rock Paper Scissor</p>
+        <p>
+            <button onclick="playerMove('rock')">Rock</button>
+            <button onclick="playerMove('paper')">Paper</button>
+            <button onclick="playerMove('scissors')" >Scissor</button>
+        </p>
+        <p>INSERT SCORE JS HERE</p>
+        <p>
+            <button>Reset Score</button>
+        </p>
+        
+
+        <script>
+
+            let score;
+
+            if(localStorage.getItem('scoreboard'))
+            {
+                console.log('exists');
+                console.log(localStorage.getItem('scoreboard'));
+                console.log(typeof(localStorage.getItem('scoreboard')));
+                console.log(JSON.parse(JSON.stringify(localStorage.getItem('scoreboard'))).wins);
+            }
+            
+            else
+            score = {wins : 0, losses : 0, ties : 0};
+
+
+            function playerMove(playerMove)
+            {
+                // get CPU move
+                let cpuMove = getCpuMove();
+
+                console.log(`you pick ${playerMove}`);
+                console.log(`cpu pick ${cpuMove}`);
+
+                // get winner
+                let winner = getWinner(playerMove, cpuMove);
+            }
+
+            function getCpuMove()
+            {
+                let min = 1;
+                let max = 3;
+                let cpuPick = Math.floor(Math.random() * (max - min + 1)) + min;
+
+                /*
+                1 -> rock
+                2 -> paper
+                3 -> scissors
+                */
+
+                if(cpuPick == 1)
+                return 'rock';
+                else if(cpuPick == 2)
+                return 'paper';
+                if(cpuPick == 3)
+                return 'scissors';
+            }
+
+            function getWinner(playerMove, cpuMove)
+            {
+                // player picked rock
+                if(playerMove && playerMove == 'rock')
+                {
+                    if(cpuMove == 'paper')
+                    {
+                        // increment losses value
+                        score.losses++;
+                        // update the losses value in score in the local storage
+                        localStorage.setItem('scoreboard', JSON.stringify(score));
+                        
+                    }
+                    else if(cpuMove == 'scissors')
+                    {
+                        score.wins++;
+                        localStorage.setItem('scoreboard', JSON.stringify(score));
+                    }
+                    else
+                    {
+                        score.ties++;
+                        localStorage.setItem('scoreboard', JSON.stringify(score));
+                    }
+                    
+                }
+                // player picked paper
+                else if(playerMove && playerMove == 'paper')
+                {
+                    if(cpuMove == 'scissors')
+                    {
+                        score.losses++;
+                        localStorage.setItem('scoreboard', JSON.stringify(score));
+                    }
+                    else if(cpuMove == 'rock')
+                    {
+                        score.wins++;
+                        localStorage.setItem('scoreboard', JSON.stringify(score));
+                    }
+
+                    else
+                    {
+                        score.ties++;
+                        localStorage.setItem('scoreboard', JSON.stringify(score));
+                    }
+                }
+                // player picked scissors
+                else if(playerMove && playerMove == 'scissors')
+                {
+                    if(cpuMove == 'rock')
+                    {
+                        score.losses++;
+                        localStorage.setItem('scoreboard', JSON.stringify(score));  
+                    }
+                    else if(cpuMove == 'paper')
+                    {
+                        score.wins++;
+                        localStorage.setItem('scoreboard', JSON.stringify(score));
+                    }
+                    else
+                    {
+                        score.ties++;
+                        localStorage.setItem('scoreboard', JSON.stringify(score));
+                    }
+                    
+                }
+                else
+                alert('Unexpected error occurred.');
+            }
+
+        </script>
+    </body>
+</html>

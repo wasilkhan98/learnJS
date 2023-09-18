@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Amazon Shipping Calcuator</title>
+    </head>
+
+    <body>
+        <p>Amazon Shipping Calculator</p>
+        <p>Orders under $40 = +$10 shipping</p>
+        <p>Orders over $40 = FREE shipping</p>
+        <input type="text" class = "order-cost" placeholder = "Cost of order">
+        <button onclick="calculateShipping()">Calculate</button>
+        <p class = "display-order-cost"></p>
+
+        <script>
+            let finalOrderValue;
+            function calculateShipping()
+            {
+                if(document.querySelector('.order-cost').value >= 0 && document.querySelector('.order-cost').value <= 9999999999999999)
+                {
+                    if(document.querySelector('.order-cost').value < 40)
+                    {   
+                        // caculate final order value
+                        finalOrderValue = Number(document.querySelector('.order-cost').value) + 10;
+                    }
+                
+                    else
+                    {
+                        // caculate final order value
+                        finalOrderValue = Number(document.querySelector('.order-cost').value);
+                    }
+                    // display order value
+                    displayOrderCost(finalOrderValue);
+                }
+                else
+                alert('Invalid Value Inserted');
+                
+            }
+
+            function displayOrderCost(costToDisplay)
+            {
+                document.querySelector('.display-order-cost').innerHTML = costToDisplay;
+            }
+            
+
+
+        </script>
+    </body>
+
+</html>
